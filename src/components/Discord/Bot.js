@@ -6,7 +6,6 @@ const Bot = props => {
     const client = new Discord.Client();
     const [connected, setConnected] = useState(false);
     const [channel, setChannel] = useState(undefined);
-
     useEffect(() => {
         if(connected) return;
         if(!client) return;
@@ -15,13 +14,14 @@ const Bot = props => {
             console.log('BOT READY!');
         });
         client.on('message', message => {
-            if(message.author.id !== process.env.BOT_AUTHOR_ID){
+            if(message.author.id !== process.env.REACT_APP_BOT_AUTHOR_ID){
                 console.log('message recieved: ', message);
                 setChannel(message.channel)
             }
           
         });
-        client.login(process.env.BOT_TOKEN).then( () => {
+        console.log(process.env.REACT_APP_BOT_TOKEN)
+        client.login(process.env.REACT_APP_BOT_TOKEN).then( () => {
             setConnected(true);
             console.log('BOT CONNECTED!', client);
         });
