@@ -2,8 +2,11 @@ import React, {useState, useEffect} from 'react'
 import './Board.scss'
 
 const Board = props => {
-    const playAudio = (wordIndex) => {
-        document.querySelectorAll('audio')[wordIndex].play();
+    const playAudio = (word, wordIndex) => {
+        // document.querySelectorAll('audio')[wordIndex].play();
+        var msg = new SpeechSynthesisUtterance(word);
+        window.speechSynthesis.speak(msg);
+        props.setLastClickedWord(word);
     }
     return (
         <div className={`Board`}>
@@ -11,7 +14,7 @@ const Board = props => {
                 props.words.map((word, wordIndex)=>{
                     return <div className={`button`} 
                     key={`${word}`}
-                    onClick={()=>playAudio(wordIndex)}
+                    onClick={()=>playAudio(word)}
                     >
                             <div className={`button-button`}>
                                 <div className={`button-label`}>{word}</div>
